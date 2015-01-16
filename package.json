@@ -1,0 +1,12 @@
+{
+  "name": "status-checker",
+  "version": "0.0.0",
+  "description": "Simply check port's status",
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "portscanner": "~1.0.0",
+    "commander": "~2.6.0"
+  }
+}

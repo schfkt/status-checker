@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var portscanner = require('portscanner');
+
+program
+  .option('-h, --host <host>', 'Host where to check port')
+  .option('-p, --port <port>', 'Port to check', parseInt)
+  .option('-t, --timeout <ms>', 'Timeout, default is 5000', parseInt)
+  .parse(process.argv);
+
+if (!program.host) {
+  console.log('error: -h, --host parameter is required');
+  process.exit(1);
+}
+
+if (!program.port) {
+  console.log('error: -p, --port parameter is required');
+  process.exit(1);
+}
+
+portscanner.checkPortStatus(program.port, {
+  host: program.host,
+  timeout: program.timeout || 5000
+}, function (err, status) {
+  if (err || status !== 'open') {
+    console.log('Port %d at %s is unavailable', program.port, program.host);
+    process.exit(1);
+  } else {
+    console.log('Port %d at %s is available', program.port, program.host);
+  }
+});
